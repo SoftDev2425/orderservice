@@ -15,7 +15,7 @@ async function connect() {
     msg => {
       //@ts-expect-error - JSON.parse(msg.content.toString()) returns any
       const { item } = JSON.parse(msg.content.toString());
-      console.log(`Order created for item: ${item}`);
+      console.log(`Order created for item: ${JSON.stringify(item)}`);
       //@ts-expect-error - msg is any
       channel.ack(msg); // Acknowledge the message
     },
