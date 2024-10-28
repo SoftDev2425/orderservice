@@ -13,11 +13,22 @@ async function connect() {
   channel.consume(
     'orderQueue',
     msg => {
-      //@ts-expect-error - JSON.parse(msg.content.toString()) returns any
-      const { item } = JSON.parse(msg.content.toString());
-      console.log(`Order created for item: ${JSON.stringify(item)}`);
-      //@ts-expect-error - msg is any
-      channel.ack(msg); // Acknowledge the message
+      if (msg !== null) {
+        // Deserialize the message from binary to the Basket object
+        const deserializedMsg = JSON.parse(msg.content.toString());
+
+        console.log(
+          `Order created for basket: ${JSON.stringify(deserializedMsg)}`,
+        );
+
+        // const basket: BasketType = Basket.decode(msg.content); // Use the decode method from Protobuf
+
+        // Logging the received basket
+        // console.log(`Order created for basket: ${JSON.stringify(basket)}`);
+
+        // Acknowledge the message
+        channel.ack(msg);
+      }
     },
     { noAck: false },
   );
