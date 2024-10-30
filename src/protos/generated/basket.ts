@@ -5,10 +5,10 @@
 // source: basket.proto
 
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
-import { Timestamp } from "./google/protobuf/timestamp";
+import { BinaryReader, BinaryWriter } from '@bufbuild/protobuf/wire';
+import { Timestamp } from './google/protobuf/timestamp';
 
-export const protobufPackage = "basket";
+export const protobufPackage = 'basket';
 
 export interface Basket {
   basketId: string;
@@ -68,7 +68,7 @@ export interface Basket_PaymentDetails {
 
 function createBaseBasket(): Basket {
   return {
-    basketId: "",
+    basketId: '',
     contactDetails: undefined,
     items: [],
     paymentDetails: undefined,
@@ -80,36 +80,55 @@ function createBaseBasket(): Basket {
 }
 
 export const Basket: MessageFns<Basket> = {
-  encode(message: Basket, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.basketId !== "") {
+  encode(
+    message: Basket,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.basketId !== '') {
       writer.uint32(10).string(message.basketId);
     }
     if (message.contactDetails !== undefined) {
-      Basket_ContactDetails.encode(message.contactDetails, writer.uint32(18).fork()).join();
+      Basket_ContactDetails.encode(
+        message.contactDetails,
+        writer.uint32(18).fork(),
+      ).join();
     }
     for (const v of message.items) {
       Basket_Item.encode(v!, writer.uint32(26).fork()).join();
     }
     if (message.paymentDetails !== undefined) {
-      Basket_PaymentDetails.encode(message.paymentDetails, writer.uint32(34).fork()).join();
+      Basket_PaymentDetails.encode(
+        message.paymentDetails,
+        writer.uint32(34).fork(),
+      ).join();
     }
     if (message.totalCost !== 0) {
       writer.uint32(41).double(message.totalCost);
     }
     if (message.createdAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.createdAt), writer.uint32(50).fork()).join();
+      Timestamp.encode(
+        toTimestamp(message.createdAt),
+        writer.uint32(50).fork(),
+      ).join();
     }
     if (message.updatedAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.updatedAt), writer.uint32(58).fork()).join();
+      Timestamp.encode(
+        toTimestamp(message.updatedAt),
+        writer.uint32(58).fork(),
+      ).join();
     }
     if (message.deletedAt !== undefined) {
-      Timestamp.encode(toTimestamp(message.deletedAt), writer.uint32(66).fork()).join();
+      Timestamp.encode(
+        toTimestamp(message.deletedAt),
+        writer.uint32(66).fork(),
+      ).join();
     }
     return writer;
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): Basket {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBasket();
     while (reader.pos < end) {
@@ -128,7 +147,10 @@ export const Basket: MessageFns<Basket> = {
             break;
           }
 
-          message.contactDetails = Basket_ContactDetails.decode(reader, reader.uint32());
+          message.contactDetails = Basket_ContactDetails.decode(
+            reader,
+            reader.uint32(),
+          );
           continue;
         }
         case 3: {
@@ -144,7 +166,10 @@ export const Basket: MessageFns<Basket> = {
             break;
           }
 
-          message.paymentDetails = Basket_PaymentDetails.decode(reader, reader.uint32());
+          message.paymentDetails = Basket_PaymentDetails.decode(
+            reader,
+            reader.uint32(),
+          );
           continue;
         }
         case 5: {
@@ -160,7 +185,9 @@ export const Basket: MessageFns<Basket> = {
             break;
           }
 
-          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.createdAt = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32()),
+          );
           continue;
         }
         case 7: {
@@ -168,7 +195,9 @@ export const Basket: MessageFns<Basket> = {
             break;
           }
 
-          message.updatedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.updatedAt = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32()),
+          );
           continue;
         }
         case 8: {
@@ -176,7 +205,9 @@ export const Basket: MessageFns<Basket> = {
             break;
           }
 
-          message.deletedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.deletedAt = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32()),
+          );
           continue;
         }
       }
@@ -190,27 +221,43 @@ export const Basket: MessageFns<Basket> = {
 
   fromJSON(object: any): Basket {
     return {
-      basketId: isSet(object.basketId) ? globalThis.String(object.basketId) : "",
-      contactDetails: isSet(object.contactDetails) ? Basket_ContactDetails.fromJSON(object.contactDetails) : undefined,
-      items: globalThis.Array.isArray(object?.items) ? object.items.map((e: any) => Basket_Item.fromJSON(e)) : [],
-      paymentDetails: isSet(object.paymentDetails) ? Basket_PaymentDetails.fromJSON(object.paymentDetails) : undefined,
-      totalCost: isSet(object.totalCost) ? globalThis.Number(object.totalCost) : 0,
-      createdAt: isSet(object.createdAt) ? fromJsonTimestamp(object.createdAt) : undefined,
-      updatedAt: isSet(object.updatedAt) ? fromJsonTimestamp(object.updatedAt) : undefined,
-      deletedAt: isSet(object.deletedAt) ? fromJsonTimestamp(object.deletedAt) : undefined,
+      basketId: isSet(object.basketId)
+        ? globalThis.String(object.basketId)
+        : '',
+      contactDetails: isSet(object.contactDetails)
+        ? Basket_ContactDetails.fromJSON(object.contactDetails)
+        : undefined,
+      items: globalThis.Array.isArray(object?.items)
+        ? object.items.map((e: any) => Basket_Item.fromJSON(e))
+        : [],
+      paymentDetails: isSet(object.paymentDetails)
+        ? Basket_PaymentDetails.fromJSON(object.paymentDetails)
+        : undefined,
+      totalCost: isSet(object.totalCost)
+        ? globalThis.Number(object.totalCost)
+        : 0,
+      createdAt: isSet(object.createdAt)
+        ? fromJsonTimestamp(object.createdAt)
+        : undefined,
+      updatedAt: isSet(object.updatedAt)
+        ? fromJsonTimestamp(object.updatedAt)
+        : undefined,
+      deletedAt: isSet(object.deletedAt)
+        ? fromJsonTimestamp(object.deletedAt)
+        : undefined,
     };
   },
 
   toJSON(message: Basket): unknown {
     const obj: any = {};
-    if (message.basketId !== "") {
+    if (message.basketId !== '') {
       obj.basketId = message.basketId;
     }
     if (message.contactDetails !== undefined) {
       obj.contactDetails = Basket_ContactDetails.toJSON(message.contactDetails);
     }
     if (message.items?.length) {
-      obj.items = message.items.map((e) => Basket_Item.toJSON(e));
+      obj.items = message.items.map(e => Basket_Item.toJSON(e));
     }
     if (message.paymentDetails !== undefined) {
       obj.paymentDetails = Basket_PaymentDetails.toJSON(message.paymentDetails);
@@ -235,14 +282,16 @@ export const Basket: MessageFns<Basket> = {
   },
   fromPartial<I extends Exact<DeepPartial<Basket>, I>>(object: I): Basket {
     const message = createBaseBasket();
-    message.basketId = object.basketId ?? "";
-    message.contactDetails = (object.contactDetails !== undefined && object.contactDetails !== null)
-      ? Basket_ContactDetails.fromPartial(object.contactDetails)
-      : undefined;
-    message.items = object.items?.map((e) => Basket_Item.fromPartial(e)) || [];
-    message.paymentDetails = (object.paymentDetails !== undefined && object.paymentDetails !== null)
-      ? Basket_PaymentDetails.fromPartial(object.paymentDetails)
-      : undefined;
+    message.basketId = object.basketId ?? '';
+    message.contactDetails =
+      object.contactDetails !== undefined && object.contactDetails !== null
+        ? Basket_ContactDetails.fromPartial(object.contactDetails)
+        : undefined;
+    message.items = object.items?.map(e => Basket_Item.fromPartial(e)) || [];
+    message.paymentDetails =
+      object.paymentDetails !== undefined && object.paymentDetails !== null
+        ? Basket_PaymentDetails.fromPartial(object.paymentDetails)
+        : undefined;
     message.totalCost = object.totalCost ?? 0;
     message.createdAt = object.createdAt ?? undefined;
     message.updatedAt = object.updatedAt ?? undefined;
@@ -252,21 +301,30 @@ export const Basket: MessageFns<Basket> = {
 };
 
 function createBaseBasket_ContactDetails(): Basket_ContactDetails {
-  return { firstName: "", lastName: "", email: "", phoneNumber: "", address: undefined };
+  return {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    address: undefined,
+  };
 }
 
 export const Basket_ContactDetails: MessageFns<Basket_ContactDetails> = {
-  encode(message: Basket_ContactDetails, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.firstName !== "") {
+  encode(
+    message: Basket_ContactDetails,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.firstName !== '') {
       writer.uint32(10).string(message.firstName);
     }
-    if (message.lastName !== "") {
+    if (message.lastName !== '') {
       writer.uint32(18).string(message.lastName);
     }
-    if (message.email !== "") {
+    if (message.email !== '') {
       writer.uint32(26).string(message.email);
     }
-    if (message.phoneNumber !== "") {
+    if (message.phoneNumber !== '') {
       writer.uint32(34).string(message.phoneNumber);
     }
     if (message.address !== undefined) {
@@ -275,8 +333,12 @@ export const Basket_ContactDetails: MessageFns<Basket_ContactDetails> = {
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): Basket_ContactDetails {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(
+    input: BinaryReader | Uint8Array,
+    length?: number,
+  ): Basket_ContactDetails {
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBasket_ContactDetails();
     while (reader.pos < end) {
@@ -333,26 +395,34 @@ export const Basket_ContactDetails: MessageFns<Basket_ContactDetails> = {
 
   fromJSON(object: any): Basket_ContactDetails {
     return {
-      firstName: isSet(object.firstName) ? globalThis.String(object.firstName) : "",
-      lastName: isSet(object.lastName) ? globalThis.String(object.lastName) : "",
-      email: isSet(object.email) ? globalThis.String(object.email) : "",
-      phoneNumber: isSet(object.phoneNumber) ? globalThis.String(object.phoneNumber) : "",
-      address: isSet(object.address) ? Basket_Address.fromJSON(object.address) : undefined,
+      firstName: isSet(object.firstName)
+        ? globalThis.String(object.firstName)
+        : '',
+      lastName: isSet(object.lastName)
+        ? globalThis.String(object.lastName)
+        : '',
+      email: isSet(object.email) ? globalThis.String(object.email) : '',
+      phoneNumber: isSet(object.phoneNumber)
+        ? globalThis.String(object.phoneNumber)
+        : '',
+      address: isSet(object.address)
+        ? Basket_Address.fromJSON(object.address)
+        : undefined,
     };
   },
 
   toJSON(message: Basket_ContactDetails): unknown {
     const obj: any = {};
-    if (message.firstName !== "") {
+    if (message.firstName !== '') {
       obj.firstName = message.firstName;
     }
-    if (message.lastName !== "") {
+    if (message.lastName !== '') {
       obj.lastName = message.lastName;
     }
-    if (message.email !== "") {
+    if (message.email !== '') {
       obj.email = message.email;
     }
-    if (message.phoneNumber !== "") {
+    if (message.phoneNumber !== '') {
       obj.phoneNumber = message.phoneNumber;
     }
     if (message.address !== undefined) {
@@ -361,51 +431,67 @@ export const Basket_ContactDetails: MessageFns<Basket_ContactDetails> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Basket_ContactDetails>, I>>(base?: I): Basket_ContactDetails {
+  create<I extends Exact<DeepPartial<Basket_ContactDetails>, I>>(
+    base?: I,
+  ): Basket_ContactDetails {
     return Basket_ContactDetails.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<Basket_ContactDetails>, I>>(object: I): Basket_ContactDetails {
+  fromPartial<I extends Exact<DeepPartial<Basket_ContactDetails>, I>>(
+    object: I,
+  ): Basket_ContactDetails {
     const message = createBaseBasket_ContactDetails();
-    message.firstName = object.firstName ?? "";
-    message.lastName = object.lastName ?? "";
-    message.email = object.email ?? "";
-    message.phoneNumber = object.phoneNumber ?? "";
-    message.address = (object.address !== undefined && object.address !== null)
-      ? Basket_Address.fromPartial(object.address)
-      : undefined;
+    message.firstName = object.firstName ?? '';
+    message.lastName = object.lastName ?? '';
+    message.email = object.email ?? '';
+    message.phoneNumber = object.phoneNumber ?? '';
+    message.address =
+      object.address !== undefined && object.address !== null
+        ? Basket_Address.fromPartial(object.address)
+        : undefined;
     return message;
   },
 };
 
 function createBaseBasket_Address(): Basket_Address {
-  return { addressLine1: "", addressLine2: "", postalCode: "", city: "", state: "", country: "" };
+  return {
+    addressLine1: '',
+    addressLine2: '',
+    postalCode: '',
+    city: '',
+    state: '',
+    country: '',
+  };
 }
 
 export const Basket_Address: MessageFns<Basket_Address> = {
-  encode(message: Basket_Address, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.addressLine1 !== "") {
+  encode(
+    message: Basket_Address,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.addressLine1 !== '') {
       writer.uint32(10).string(message.addressLine1);
     }
-    if (message.addressLine2 !== "") {
+    if (message.addressLine2 !== '') {
       writer.uint32(18).string(message.addressLine2);
     }
-    if (message.postalCode !== "") {
+    if (message.postalCode !== '') {
       writer.uint32(26).string(message.postalCode);
     }
-    if (message.city !== "") {
+    if (message.city !== '') {
       writer.uint32(34).string(message.city);
     }
-    if (message.state !== "") {
+    if (message.state !== '') {
       writer.uint32(42).string(message.state);
     }
-    if (message.country !== "") {
+    if (message.country !== '') {
       writer.uint32(50).string(message.country);
     }
     return writer;
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): Basket_Address {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBasket_Address();
     while (reader.pos < end) {
@@ -470,66 +556,79 @@ export const Basket_Address: MessageFns<Basket_Address> = {
 
   fromJSON(object: any): Basket_Address {
     return {
-      addressLine1: isSet(object.addressLine1) ? globalThis.String(object.addressLine1) : "",
-      addressLine2: isSet(object.addressLine2) ? globalThis.String(object.addressLine2) : "",
-      postalCode: isSet(object.postalCode) ? globalThis.String(object.postalCode) : "",
-      city: isSet(object.city) ? globalThis.String(object.city) : "",
-      state: isSet(object.state) ? globalThis.String(object.state) : "",
-      country: isSet(object.country) ? globalThis.String(object.country) : "",
+      addressLine1: isSet(object.addressLine1)
+        ? globalThis.String(object.addressLine1)
+        : '',
+      addressLine2: isSet(object.addressLine2)
+        ? globalThis.String(object.addressLine2)
+        : '',
+      postalCode: isSet(object.postalCode)
+        ? globalThis.String(object.postalCode)
+        : '',
+      city: isSet(object.city) ? globalThis.String(object.city) : '',
+      state: isSet(object.state) ? globalThis.String(object.state) : '',
+      country: isSet(object.country) ? globalThis.String(object.country) : '',
     };
   },
 
   toJSON(message: Basket_Address): unknown {
     const obj: any = {};
-    if (message.addressLine1 !== "") {
+    if (message.addressLine1 !== '') {
       obj.addressLine1 = message.addressLine1;
     }
-    if (message.addressLine2 !== "") {
+    if (message.addressLine2 !== '') {
       obj.addressLine2 = message.addressLine2;
     }
-    if (message.postalCode !== "") {
+    if (message.postalCode !== '') {
       obj.postalCode = message.postalCode;
     }
-    if (message.city !== "") {
+    if (message.city !== '') {
       obj.city = message.city;
     }
-    if (message.state !== "") {
+    if (message.state !== '') {
       obj.state = message.state;
     }
-    if (message.country !== "") {
+    if (message.country !== '') {
       obj.country = message.country;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Basket_Address>, I>>(base?: I): Basket_Address {
+  create<I extends Exact<DeepPartial<Basket_Address>, I>>(
+    base?: I,
+  ): Basket_Address {
     return Basket_Address.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<Basket_Address>, I>>(object: I): Basket_Address {
+  fromPartial<I extends Exact<DeepPartial<Basket_Address>, I>>(
+    object: I,
+  ): Basket_Address {
     const message = createBaseBasket_Address();
-    message.addressLine1 = object.addressLine1 ?? "";
-    message.addressLine2 = object.addressLine2 ?? "";
-    message.postalCode = object.postalCode ?? "";
-    message.city = object.city ?? "";
-    message.state = object.state ?? "";
-    message.country = object.country ?? "";
+    message.addressLine1 = object.addressLine1 ?? '';
+    message.addressLine2 = object.addressLine2 ?? '';
+    message.postalCode = object.postalCode ?? '';
+    message.city = object.city ?? '';
+    message.state = object.state ?? '';
+    message.country = object.country ?? '';
     return message;
   },
 };
 
 function createBaseBasket_Item(): Basket_Item {
-  return { itemId: "", name: "", description: "", quantity: 0, price: 0 };
+  return { itemId: '', name: '', description: '', quantity: 0, price: 0 };
 }
 
 export const Basket_Item: MessageFns<Basket_Item> = {
-  encode(message: Basket_Item, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.itemId !== "") {
+  encode(
+    message: Basket_Item,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.itemId !== '') {
       writer.uint32(10).string(message.itemId);
     }
-    if (message.name !== "") {
+    if (message.name !== '') {
       writer.uint32(18).string(message.name);
     }
-    if (message.description !== "") {
+    if (message.description !== '') {
       writer.uint32(26).string(message.description);
     }
     if (message.quantity !== 0) {
@@ -542,7 +641,8 @@ export const Basket_Item: MessageFns<Basket_Item> = {
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): Basket_Item {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBasket_Item();
     while (reader.pos < end) {
@@ -599,9 +699,11 @@ export const Basket_Item: MessageFns<Basket_Item> = {
 
   fromJSON(object: any): Basket_Item {
     return {
-      itemId: isSet(object.itemId) ? globalThis.String(object.itemId) : "",
-      name: isSet(object.name) ? globalThis.String(object.name) : "",
-      description: isSet(object.description) ? globalThis.String(object.description) : "",
+      itemId: isSet(object.itemId) ? globalThis.String(object.itemId) : '',
+      name: isSet(object.name) ? globalThis.String(object.name) : '',
+      description: isSet(object.description)
+        ? globalThis.String(object.description)
+        : '',
       quantity: isSet(object.quantity) ? globalThis.Number(object.quantity) : 0,
       price: isSet(object.price) ? globalThis.Number(object.price) : 0,
     };
@@ -609,13 +711,13 @@ export const Basket_Item: MessageFns<Basket_Item> = {
 
   toJSON(message: Basket_Item): unknown {
     const obj: any = {};
-    if (message.itemId !== "") {
+    if (message.itemId !== '') {
       obj.itemId = message.itemId;
     }
-    if (message.name !== "") {
+    if (message.name !== '') {
       obj.name = message.name;
     }
-    if (message.description !== "") {
+    if (message.description !== '') {
       obj.description = message.description;
     }
     if (message.quantity !== 0) {
@@ -630,11 +732,13 @@ export const Basket_Item: MessageFns<Basket_Item> = {
   create<I extends Exact<DeepPartial<Basket_Item>, I>>(base?: I): Basket_Item {
     return Basket_Item.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<Basket_Item>, I>>(object: I): Basket_Item {
+  fromPartial<I extends Exact<DeepPartial<Basket_Item>, I>>(
+    object: I,
+  ): Basket_Item {
     const message = createBaseBasket_Item();
-    message.itemId = object.itemId ?? "";
-    message.name = object.name ?? "";
-    message.description = object.description ?? "";
+    message.itemId = object.itemId ?? '';
+    message.name = object.name ?? '';
+    message.description = object.description ?? '';
     message.quantity = object.quantity ?? 0;
     message.price = object.price ?? 0;
     return message;
@@ -642,28 +746,43 @@ export const Basket_Item: MessageFns<Basket_Item> = {
 };
 
 function createBaseBasket_PaymentDetails(): Basket_PaymentDetails {
-  return { paymentMethod: "", transactionId: "", status: "", paymentDate: undefined };
+  return {
+    paymentMethod: '',
+    transactionId: '',
+    status: '',
+    paymentDate: undefined,
+  };
 }
 
 export const Basket_PaymentDetails: MessageFns<Basket_PaymentDetails> = {
-  encode(message: Basket_PaymentDetails, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.paymentMethod !== "") {
+  encode(
+    message: Basket_PaymentDetails,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.paymentMethod !== '') {
       writer.uint32(10).string(message.paymentMethod);
     }
-    if (message.transactionId !== "") {
+    if (message.transactionId !== '') {
       writer.uint32(18).string(message.transactionId);
     }
-    if (message.status !== "") {
+    if (message.status !== '') {
       writer.uint32(26).string(message.status);
     }
     if (message.paymentDate !== undefined) {
-      Timestamp.encode(toTimestamp(message.paymentDate), writer.uint32(34).fork()).join();
+      Timestamp.encode(
+        toTimestamp(message.paymentDate),
+        writer.uint32(34).fork(),
+      ).join();
     }
     return writer;
   },
 
-  decode(input: BinaryReader | Uint8Array, length?: number): Basket_PaymentDetails {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(
+    input: BinaryReader | Uint8Array,
+    length?: number,
+  ): Basket_PaymentDetails {
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBasket_PaymentDetails();
     while (reader.pos < end) {
@@ -698,7 +817,9 @@ export const Basket_PaymentDetails: MessageFns<Basket_PaymentDetails> = {
             break;
           }
 
-          message.paymentDate = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.paymentDate = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32()),
+          );
           continue;
         }
       }
@@ -712,22 +833,28 @@ export const Basket_PaymentDetails: MessageFns<Basket_PaymentDetails> = {
 
   fromJSON(object: any): Basket_PaymentDetails {
     return {
-      paymentMethod: isSet(object.paymentMethod) ? globalThis.String(object.paymentMethod) : "",
-      transactionId: isSet(object.transactionId) ? globalThis.String(object.transactionId) : "",
-      status: isSet(object.status) ? globalThis.String(object.status) : "",
-      paymentDate: isSet(object.paymentDate) ? fromJsonTimestamp(object.paymentDate) : undefined,
+      paymentMethod: isSet(object.paymentMethod)
+        ? globalThis.String(object.paymentMethod)
+        : '',
+      transactionId: isSet(object.transactionId)
+        ? globalThis.String(object.transactionId)
+        : '',
+      status: isSet(object.status) ? globalThis.String(object.status) : '',
+      paymentDate: isSet(object.paymentDate)
+        ? fromJsonTimestamp(object.paymentDate)
+        : undefined,
     };
   },
 
   toJSON(message: Basket_PaymentDetails): unknown {
     const obj: any = {};
-    if (message.paymentMethod !== "") {
+    if (message.paymentMethod !== '') {
       obj.paymentMethod = message.paymentMethod;
     }
-    if (message.transactionId !== "") {
+    if (message.transactionId !== '') {
       obj.transactionId = message.transactionId;
     }
-    if (message.status !== "") {
+    if (message.status !== '') {
       obj.status = message.status;
     }
     if (message.paymentDate !== undefined) {
@@ -736,30 +863,48 @@ export const Basket_PaymentDetails: MessageFns<Basket_PaymentDetails> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Basket_PaymentDetails>, I>>(base?: I): Basket_PaymentDetails {
+  create<I extends Exact<DeepPartial<Basket_PaymentDetails>, I>>(
+    base?: I,
+  ): Basket_PaymentDetails {
     return Basket_PaymentDetails.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<Basket_PaymentDetails>, I>>(object: I): Basket_PaymentDetails {
+  fromPartial<I extends Exact<DeepPartial<Basket_PaymentDetails>, I>>(
+    object: I,
+  ): Basket_PaymentDetails {
     const message = createBaseBasket_PaymentDetails();
-    message.paymentMethod = object.paymentMethod ?? "";
-    message.transactionId = object.transactionId ?? "";
-    message.status = object.status ?? "";
+    message.paymentMethod = object.paymentMethod ?? '';
+    message.transactionId = object.transactionId ?? '';
+    message.status = object.status ?? '';
     message.paymentDate = object.paymentDate ?? undefined;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = Math.trunc(date.getTime() / 1_000);
@@ -776,7 +921,7 @@ function fromTimestamp(t: Timestamp): Date {
 function fromJsonTimestamp(o: any): Date {
   if (o instanceof globalThis.Date) {
     return o;
-  } else if (typeof o === "string") {
+  } else if (typeof o === 'string') {
     return new globalThis.Date(o);
   } else {
     return fromTimestamp(Timestamp.fromJSON(o));
