@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package basket;
+
+import "google/protobuf/timestamp.proto";
+
+message Basket {
+    string basket_id = 1;  
+    ContactDetails contact_details = 2;
+    repeated Item items = 3; 
+    PaymentDetails payment_details = 4; 
+    double total_cost = 5; 
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+    google.protobuf.Timestamp deleted_at = 8; 
+
+    // Contact details for the basket (user's information)
+    message ContactDetails {
+        string first_name = 1;
+        string last_name = 2;
+        string email = 3;  
+        string phone_number = 4; 
+        Address address = 5;
+    }
+
+    // Shipping or billing address details
+    message Address {
+        string address_line_1 = 1;
+        string address_line_2 = 2; 
+        string postal_code = 3;    
+        string city = 4;           
+        string state = 5;          
+        string country = 6;        
+    }
+
+    // Represents an individual item in the basket
+    message Item {
+        string item_id = 1;  // Unique identifier for the item
+        string name = 2;     // Name of the item
+        string description = 3;  // Description of the item
+        int32 quantity = 4;  // Quantity of the item
+        double price = 5;    // Price per item
+    }
+
+    // Payment-related details (e.g., for credit card or other payment method)
+    message PaymentDetails {
+        string payment_method = 1;  // Payment method (e.g., "credit_card", "paypal")
+        string transaction_id = 2;  // Transaction ID if available (optional by default)
+        string status = 3;          // Payment status (e.g., "pending", "completed") (optional by default)
+        google.protobuf.Timestamp payment_date = 4;  // Date of payment
+    }
+}

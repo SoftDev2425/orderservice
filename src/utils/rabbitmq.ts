@@ -1,6 +1,7 @@
 // order-service/src/rabbitmq.ts
 
 import amqp, { Channel } from 'amqplib';
+import { Basket } from '../protos/generated/basket';
 
 let channel: Channel;
 
@@ -14,9 +15,10 @@ async function connect() {
     'orderQueue',
     msg => {
       if (msg !== null) {
-        // Deserialize the message from binary to the Basket object
-        const deserializedMsg = JSON.parse(msg.content.toString());
+        // Deserialize the message from binary to the Basket object - this needs the Basket + Protobuf... shared repo???
+        const deserializedMsg = Basket.decode(msg.content);
 
+        // Logging the received basket
         console.log(
           `Order created for basket: ${JSON.stringify(deserializedMsg)}`,
         );
